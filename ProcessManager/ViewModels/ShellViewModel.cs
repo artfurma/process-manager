@@ -1,6 +1,9 @@
+using Caliburn.Micro;
+
 namespace ProcessManager.ViewModels
 {
-	public class ShellViewModel : Caliburn.Micro.PropertyChangedBase, IShell
+	public class ShellViewModel : Conductor<IScreen>.Collection.OneActive, IShell
 	{
+
 	}
 }
