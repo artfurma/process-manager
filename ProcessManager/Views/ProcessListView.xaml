@@ -1,12 +1,44 @@
 ﻿<UserControl x:Class="ProcessManager.Views.ProcessListView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ProcessManager.Views"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="640" d:DesignWidth="620">
     <Grid Background="White">
-            <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="30" Content="MASTER"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Wyszukaj proces:" FontWeight="Bold" />
+            <TextBox Width="495" Margin="10, 0, 10, 0"/>
+        </StackPanel>
+        <ListView Margin="0, 10, 0, 0" Grid.Row="1" ItemsSource="{Binding ActiveProcesses}"
+                  SelectedItem="{Binding SelectedProcess}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Nazwa" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="16" Margin="0,0,5,0" Source="{Binding ImageSource}" />
+                                    <TextBlock Text="{Binding Process.ProcessName}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Identyfikator" Width="Auto"
+                                    DisplayMemberBinding="{Binding Process.Id}" />
+                    <GridViewColumn Header="Pamięć" Width="Auto"
+                                    DisplayMemberBinding="{Binding Process.VirtualMemorySize64}" />
+                    <GridViewColumn Header="Opis" Width="Auto"
+                                    DisplayMemberBinding="{Binding Process.MainModule.FileVersionInfo.FileDescription}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Grid.Row="2" Margin="5, 5, 5, 5" Content="ODŚWIEŻ" />
     </Grid>
 </UserControl>
