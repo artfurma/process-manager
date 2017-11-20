@@ -22,6 +22,7 @@ namespace ProcessManager
 			container.Singleton<IEventAggregator, EventAggregator>();
 			container.PerRequest<IShell, ShellViewModel>();
 			container.Singleton<ProcessListViewModel>();
+			container.PerRequest<ProcessDetailsViewModel>();
 		}
 		
 		protected override object GetInstance(Type service, string key)

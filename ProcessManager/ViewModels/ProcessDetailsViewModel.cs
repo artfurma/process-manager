@@ -10,9 +10,12 @@ namespace ProcessManager.ViewModels
 {
 	public class ProcessDetailsViewModel : Screen
 	{
+		public ProcessDetailsViewModel()
+		{
+		}
+
 		protected override void OnActivate()
 		{
-			MessageBox.Show("Details activated"); //Don't do this in a real VM.
 			base.OnActivate();
 		}
 	}

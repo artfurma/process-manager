@@ -81,6 +81,8 @@ namespace ProcessManager.ViewModels
 					}
 					ActiveProcesses.Add(process);
 				}
+
+				SelectedProcess = ActiveProcesses.FirstOrDefault();
 			}
 		}
 
