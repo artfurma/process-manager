@@ -13,5 +13,6 @@ namespace ProcessManager.DTO
 		public ImageSource ImageSource { get; set; }
 		public string MemorySize => (Process.VirtualMemorySize64 / 1024).ToString(CultureInfo.InvariantCulture) + " K";
 		public int ThreadCount => Process.Threads.Count;
+		public int ModuleCount => Process.Modules.Count;
 	}
 }

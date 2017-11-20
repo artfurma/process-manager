@@ -19,17 +19,20 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                     <RowDefinition Height="120" />
-                    <RowDefinition Height="320" />
+                    <RowDefinition Height="360" />
                     <RowDefinition Height="250" />
                     <RowDefinition Height="250" />
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" Margin="10, 10, 10, 10">
+
                     <Image Width="32" Source="{Binding Process.ImageSource}" />
                     <Label FontSize="16" FontWeight="Bold" Margin="20, 0, 10, 0">Nazwa procesu:</Label>
                     <Label FontSize="16" Content="{Binding Process.Process.ProcessName, Mode=OneWay}" />
                 </StackPanel>
                 <GroupBox Grid.Row="1" Header="Informacje ogólne" Margin="10, 10, 10, 10">
+                    
                     <StackPanel>
+
                         <StackPanel Orientation="Horizontal">
                             <Label FontWeight="Bold" Margin="20, 0, 5, 0">Identyfikator:</Label>
                             <Label Content="{Binding Process.Process.Id, Mode=OneWay}" />
@@ -49,6 +52,9 @@
                 </GroupBox>
 
                 <GroupBox Grid.Row="2" Header="Szczegóły" Margin="10, 10, 10, 10">
+                    <GroupBox.Background>
+                        <ImageBrush Opacity="0.1" ImageSource="../Resources/Images/Task Manager alt 1.png" Stretch="None" />
+                    </GroupBox.Background>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Label FontWeight="Bold" Margin="20, 0, 5, 0">Liczba wątków:</Label>
@@ -99,10 +105,15 @@
                             <Label FontWeight="Bold" Margin="20, 0, 5, 0">Maksymalny rozmiar zestawu roboczego:</Label>
                             <Label Content="{Binding Process.Process.MaxWorkingSet, Mode=OneWay}" />
                         </StackPanel>
-                        
+
                         <StackPanel Orientation="Horizontal">
                             <Label FontWeight="Bold" Margin="20, 0, 5, 0">Minimalny rozmiar zestawu roboczego:</Label>
                             <Label Content="{Binding Process.Process.MinWorkingSet, Mode=OneWay}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontWeight="Bold" Margin="20, 0, 5, 0">Liczba modułów:</Label>
+                            <Label Content="{Binding Process.ModuleCount, Mode=OneWay}" />
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
@@ -128,14 +139,12 @@
                     <ListView ItemsSource="{Binding Process.Process.Modules, Mode=OneWay}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Identyfikator" Width="Auto"
-                                                DisplayMemberBinding="{Binding Id, Mode=OneWay}" />
-                                <GridViewColumn Header="Poziom Priorytetu" Width="Auto"
-                                                DisplayMemberBinding="{Binding PriorityLevel, Mode=OneWay}" />
-                                <GridViewColumn Header="Priorytet (Aktualny)" Width="Auto"
-                                                DisplayMemberBinding="{Binding CurrentPriority, Mode=OneWay}" />
-                                <GridViewColumn Header="Priorytet (Bazowy)" Width="Auto"
-                                                DisplayMemberBinding="{Binding BasePriority, Mode=OneWay}" />
+                                <GridViewColumn Header="Nazwa" Width="Auto"
+                                                DisplayMemberBinding="{Binding ModuleName, Mode=OneWay}" />
+                                <GridViewColumn Header="Rozmiar Pamięci" Width="Auto"
+                                                DisplayMemberBinding="{Binding ModuleMemorySize, Mode=OneWay}" />
+                                <GridViewColumn Header="Adres Bazowy" Width="Auto"
+                                                DisplayMemberBinding="{Binding BaseAddress, Mode=OneWay}" />
                             </GridView>
                         </ListView.View>
                     </ListView>
