@@ -17,7 +17,7 @@
             <TextBox Width="495" Margin="10, 0, 10, 0"/>
         </StackPanel>
         <ListView Margin="0, 10, 0, 0" Grid.Row="1" ItemsSource="{Binding ActiveProcesses}"
-                  SelectedItem="{Binding SelectedProcess, Mode=TwoWay}">
+                  SelectedItem="{Binding SelectedProcess}" SelectedIndex="1">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Nazwa" Width="150">
@@ -33,7 +33,7 @@
                     <GridViewColumn Header="Identyfikator" Width="Auto"
                                     DisplayMemberBinding="{Binding Process.Id}" />
                     <GridViewColumn Header="Pamięć" Width="Auto"
-                                    DisplayMemberBinding="{Binding Process.VirtualMemorySize64}" />
+                                    DisplayMemberBinding="{Binding MemorySize}" />
                     <GridViewColumn Header="Opis" Width="Auto"
                                     DisplayMemberBinding="{Binding Process.MainModule.FileVersionInfo.FileDescription}" />
                 </GridView>

@@ -13,17 +13,133 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Label Height="48" FontWeight="Light" FontSize="24" HorizontalAlignment="Center" FontFamily="Consolas">Informacje o Procesie</Label>
-        <Separator Grid.Row="1"/>
+        <Separator Grid.Row="1" />
         <ScrollViewer Grid.Row="2">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="120" />
+                    <RowDefinition Height="320" />
+                    <RowDefinition Height="250" />
+                    <RowDefinition Height="250" />
                 </Grid.RowDefinitions>
-                <DockPanel Margin="10, 10, 10, 10">
-                    <Label DockPanel.Dock="Left" Margin="0, 0, 10, 0">Nazwa procesu:</Label>
-                    <TextBox DockPanel.Dock="Right" Text="{Binding Process.Process.ProcessName}" IsEnabled="False"/>
-                </DockPanel>
+                <StackPanel Orientation="Horizontal" Margin="10, 10, 10, 10">
+                    <Image Width="32" Source="{Binding Process.ImageSource}" />
+                    <Label FontSize="16" FontWeight="Bold" Margin="20, 0, 10, 0">Nazwa procesu:</Label>
+                    <Label FontSize="16" Content="{Binding Process.Process.ProcessName, Mode=OneWay}" />
+                </StackPanel>
+                <GroupBox Grid.Row="1" Header="Informacje ogólne" Margin="10, 10, 10, 10">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontWeight="Bold" Margin="20, 0, 5, 0">Identyfikator:</Label>
+                            <Label Content="{Binding Process.Process.Id, Mode=OneWay}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontWeight="Bold" Margin="20, 0, 5, 0">Opis:</Label>
+                            <Label
+                                Content="{Binding Process.Process.MainModule.FileVersionInfo.FileDescription, Mode=OneWay}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontWeight="Bold" Margin="20, 0, 5, 0">Rozmiar zarezerwowanej pamięci:</Label>
+                            <Label Content="{Binding Process.MemorySize, Mode=OneWay}" />
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Grid.Row="2" Header="Szczegóły" Margin="10, 10, 10, 10">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontWeight="Bold" Margin="20, 0, 5, 0">Liczba wątków:</Label>
+                            <Label Content="{Binding Process.ThreadCount, Mode=OneWay}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontWeight="Bold" Margin="20, 0, 5, 0">Klasa prioritetu:</Label>
+                            <Label Content="{Binding Process.Process.PriorityClass, Mode=OneWay}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontWeight="Bold" Margin="20, 0, 5, 0">Priorytet:</Label>
+                            <Label Content="{Binding Process.Process.BasePriority, Mode=OneWay}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontWeight="Bold" Margin="20, 0, 5, 0">Liczba otwartych uchwytów:</Label>
+                            <Label Content="{Binding Process.Process.HandleCount, Mode=OneWay}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontWeight="Bold" Margin="20, 0, 5, 0">Nazwa maszyny:</Label>
+                            <Label Content="{Binding Process.Process.MachineName, Mode=OneWay}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontWeight="Bold" Margin="20, 0, 5, 0">Tytuł głównego okna:</Label>
+                            <Label Content="{Binding Process.Process.MainWindowTitle, Mode=OneWay}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontWeight="Bold" Margin="20, 0, 5, 0">Łączny czas procesora:</Label>
+                            <Label Content="{Binding Process.Process.TotalProcessorTime, Mode=OneWay}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontWeight="Bold" Margin="20, 0, 5, 0">Godzina rozpoczęcia:</Label>
+                            <Label Content="{Binding Process.Process.StartTime, Mode=OneWay}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontWeight="Bold" Margin="20, 0, 5, 0">Identyfikator sesji:</Label>
+                            <Label Content="{Binding Process.Process.SessionId, Mode=OneWay}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontWeight="Bold" Margin="20, 0, 5, 0">Maksymalny rozmiar zestawu roboczego:</Label>
+                            <Label Content="{Binding Process.Process.MaxWorkingSet, Mode=OneWay}" />
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontWeight="Bold" Margin="20, 0, 5, 0">Minimalny rozmiar zestawu roboczego:</Label>
+                            <Label Content="{Binding Process.Process.MinWorkingSet, Mode=OneWay}" />
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Grid.Row="3" Header="Lista wątków" Margin="10, 10, 10, 10">
+                    <ListView ItemsSource="{Binding Process.Process.Threads, Mode=OneWay}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Identyfikator" Width="Auto"
+                                                DisplayMemberBinding="{Binding Id, Mode=OneWay}" />
+                                <GridViewColumn Header="Poziom Priorytetu" Width="Auto"
+                                                DisplayMemberBinding="{Binding PriorityLevel, Mode=OneWay}" />
+                                <GridViewColumn Header="Priorytet (Aktualny)" Width="Auto"
+                                                DisplayMemberBinding="{Binding CurrentPriority, Mode=OneWay}" />
+                                <GridViewColumn Header="Priorytet (Bazowy)" Width="Auto"
+                                                DisplayMemberBinding="{Binding BasePriority, Mode=OneWay}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </GroupBox>
+
+                <GroupBox Grid.Row="4" Header="Lista modułów" Margin="10, 10, 10, 10">
+                    <ListView ItemsSource="{Binding Process.Process.Modules, Mode=OneWay}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Identyfikator" Width="Auto"
+                                                DisplayMemberBinding="{Binding Id, Mode=OneWay}" />
+                                <GridViewColumn Header="Poziom Priorytetu" Width="Auto"
+                                                DisplayMemberBinding="{Binding PriorityLevel, Mode=OneWay}" />
+                                <GridViewColumn Header="Priorytet (Aktualny)" Width="Auto"
+                                                DisplayMemberBinding="{Binding CurrentPriority, Mode=OneWay}" />
+                                <GridViewColumn Header="Priorytet (Bazowy)" Width="Auto"
+                                                DisplayMemberBinding="{Binding BasePriority, Mode=OneWay}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </GroupBox>
             </Grid>
         </ScrollViewer>
     </Grid>

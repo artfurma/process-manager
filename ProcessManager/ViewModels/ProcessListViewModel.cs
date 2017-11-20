@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Management;
-using System.Windows;
 using System.Windows.Media.Imaging;
 using Caliburn.Micro;
 using ProcessManager.DTO;
@@ -15,6 +12,8 @@ namespace ProcessManager.ViewModels
 {
 	public class ProcessListViewModel : Screen
 	{
+		private readonly IEventAggregator _events;
+
 		#region Binded Properties
 
 		private ProcessDTO _selectedProcess;
@@ -37,16 +36,20 @@ namespace ProcessManager.ViewModels
 			{
 				_selectedProcess = value;
 				NotifyOfPropertyChange(() => SelectedProcess);
+				_events.PublishOnUIThread(SelectedProcess);
 			}
 		}
 
 		#endregion
 
-		public ProcessListViewModel()
+		public ProcessListViewModel(IEventAggregator events)
 		{
+			_events = events;
+
 			ActiveProcesses = new ObservableCollection<ProcessDTO>();
 
 			Initialize();
+			SelectedProcess = ActiveProcesses.FirstOrDefault();
 		}
 
 		public void Initialize()
@@ -81,16 +84,7 @@ namespace ProcessManager.ViewModels
 					}
 					ActiveProcesses.Add(process);
 				}
-
-				SelectedProcess = ActiveProcesses.FirstOrDefault();
 			}
-		}
-
-		protected override void OnActivate()
-		{
-//			ActiveProcesses = new ObservableCollection<Process>(Process.GetProcesses());
-
-			base.OnActivate();
 		}
 	}
 }

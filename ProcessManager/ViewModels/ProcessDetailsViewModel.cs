@@ -1,22 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
+using ProcessManager.DTO;
 
 namespace ProcessManager.ViewModels
 {
-	public class ProcessDetailsViewModel : Screen
+	public class ProcessDetailsViewModel : Screen, IHandle<ProcessDTO>
 	{
-		public ProcessDetailsViewModel()
+		private readonly IEventAggregator _eventAggregator;
+
+		#region Binded Properties
+
+		private ProcessDTO _process;
+
+		public ProcessDTO Process
 		{
+			get => _process;
+			set
+			{
+				_process = value;
+				NotifyOfPropertyChange(() => Process);
+			}
+		}
+
+		#endregion
+
+		public ProcessDetailsViewModel(IEventAggregator eventAggregator)
+		{
+			_eventAggregator = eventAggregator;
+			_eventAggregator.Subscribe(this);
 		}
 
 		protected override void OnActivate()
 		{
 			base.OnActivate();
+		}
+
+		public void Handle(ProcessDTO process)
+		{
+			if (process != null)
+				Process = process;
 		}
 	}
 }
