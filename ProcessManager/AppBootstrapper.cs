@@ -9,6 +9,18 @@ namespace ProcessManager
 	{
 		SimpleContainer container;
 
+		static IEnumerable<System.Windows.DependencyObject> FluentRibbonChildResolver(Fluent.Ribbon ribbon)
+		{
+			foreach (var ti in ribbon.Tabs)
+			{
+				foreach (var group in ti.Groups)
+				{
+					foreach (var obj in BindingScope.GetNamedElements(group))
+						yield return obj;
+				}
+			}
+		}
+
 		public AppBootstrapper()
 		{
 			Initialize();
@@ -23,8 +35,10 @@ namespace ProcessManager
 			container.PerRequest<IShell, ShellViewModel>();
 			container.Singleton<ProcessListViewModel>();
 			container.PerRequest<ProcessDetailsViewModel>();
+
+			BindingScope.AddChildResolver<Fluent.Ribbon>(FluentRibbonChildResolver);
 		}
-		
+
 		protected override object GetInstance(Type service, string key)
 		{
 			return container.GetInstance(service, key);

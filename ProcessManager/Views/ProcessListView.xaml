@@ -10,7 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="24" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+<!--            <RowDefinition Height="Auto" />-->
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
             <Label Content="Wyszukaj proces:" FontWeight="Bold" />
@@ -39,6 +39,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Grid.Row="2" Margin="5, 5, 5, 5" Content="ODŚWIEŻ" />
+<!--        <Button Grid.Row="2" Margin="5, 5, 5, 5" Content="ODŚWIEŻ" />-->
     </Grid>
 </UserControl>
