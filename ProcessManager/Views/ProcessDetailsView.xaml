@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ProcessManager.Views"
              mc:Ignorable="d"
              d:DesignHeight="640" d:DesignWidth="620">
-    <Grid Background="White">
+    <Grid Background="White" Visibility="{Binding IsVisible}">
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
             <RowDefinition Height="5" />

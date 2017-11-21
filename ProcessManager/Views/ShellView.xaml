@@ -5,7 +5,8 @@
                      xmlns:cal="http://www.caliburnproject.org"
                      xmlns:Fluent="urn:fluent-ribbon"
                      Title="Manager Procesow - Artur Furmanczyk (155063) - PLANET KAiMS ETI PG"
-                     Width="1280" Height="720">
+                     Width="1280" Height="720"
+                     cal:Message.Attach="[Event Closing] = [Action OnClose($eventArgs)]">
 
     <Grid Background="White">
         <Grid.RowDefinitions>
@@ -15,17 +16,34 @@
         <Fluent:Ribbon Grid.Row="0">
             <Fluent:RibbonTabItem Header="Aplikacja">
                 <Fluent:RibbonGroupBox Header="Lista">
-                    <Fluent:Button Header="Odswiez"
+                    <Fluent:Button x:Name="RefreshProcessList"
+                                   Header="Odswiez"
                                    Icon="../Resources/Images/refresh.png"
                                    LargeIcon="../Resources/Images/refresh.png" />
                 </Fluent:RibbonGroupBox>
                 <Fluent:RibbonGroupBox Header="Wybrany Proces">
-                    <Fluent:Button Header="Ubij"
+                    <Fluent:Button x:Name="KillSelectedProcess"
+                                   Header="Ubij"
                                    Icon="../Resources/Images/kill.png"
                                    LargeIcon="../Resources/Images/kill.png" />
-                    <Fluent:Button Header="Zmien Priorytet"
-                                   Icon="../Resources/Images/priority.png"
-                                   LargeIcon="../Resources/Images/priority.png" />
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Ustaw Priorytet">
+                    <Fluent:Button x:Name="SetIdlePriority"
+                                   Header="Bezczynny"
+                                   Icon="../Resources/Images/priority_idle.png"
+                                   LargeIcon="../Resources/Images/priority_idle.png" />
+                    <Fluent:Button x:Name="SetNormalPriority"
+                                   Header="Normalny"
+                                   Icon="../Resources/Images/priority_normal.png"
+                                   LargeIcon="../Resources/Images/priority_normal.png" />
+                    <Fluent:Button x:Name="SetHighPriority"
+                                   Header="Wysoki"
+                                   Icon="../Resources/Images/priority_high.png"
+                                   LargeIcon="../Resources/Images/priority_high.png" />
+                    <Fluent:Button x:Name="SetRealtimePriority"
+                                   Header="Czasu Rzeczywistego"
+                                   Icon="../Resources/Images/priority_realtime.png"
+                                   LargeIcon="../Resources/Images/priority_realtime.png" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
         </Fluent:Ribbon>

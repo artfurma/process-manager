@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System.Windows;
+using Caliburn.Micro;
 using ProcessManager.DTO;
 
 namespace ProcessManager.ViewModels
@@ -10,6 +11,7 @@ namespace ProcessManager.ViewModels
 		#region Binded Properties
 
 		private ProcessDTO _process;
+		private Visibility _isVisible;
 
 		public ProcessDTO Process
 		{
@@ -21,12 +23,23 @@ namespace ProcessManager.ViewModels
 			}
 		}
 
+		public Visibility IsVisible
+		{
+			get => _isVisible;
+			set
+			{
+				_isVisible = value;
+				NotifyOfPropertyChange(() => IsVisible);
+			}
+		}
+
 		#endregion
 
 		public ProcessDetailsViewModel(IEventAggregator eventAggregator)
 		{
 			_eventAggregator = eventAggregator;
 			_eventAggregator.Subscribe(this);
+			IsVisible = Visibility.Hidden;
 		}
 
 		protected override void OnActivate()
@@ -37,7 +50,14 @@ namespace ProcessManager.ViewModels
 		public void Handle(ProcessDTO process)
 		{
 			if (process != null)
+			{
 				Process = process;
+				IsVisible = Visibility.Visible;
+			}
+			else
+			{
+				IsVisible = Visibility.Hidden;
+			}
 		}
 	}
 }
